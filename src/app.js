@@ -26,9 +26,12 @@ import productRouter from './Routes/product.routes.js'
 
 import categoryRouter from './Routes/category.routes.js'
 
+import cartRouter from './Routes/cart.routes.js'
+
 app.use("/api/v1/users" , userRouter)
 app.use("/api/v1/users/address" , addressRouter)
 app.use("/api/v1/products", productRouter)
 app.use("/api/v1/category" , categoryRouter)
+app.use("/api/v1/cart" , cartRouter)
 
 export {app}
