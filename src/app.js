@@ -12,8 +12,8 @@ app.use(cors(
     }
 ))
 
-app.use(express.json({limit : "16kb"}))
-app.use(express.urlencoded({extended:true , limit:"16kb"}))
+app.use(express.json())
+app.use(express.urlencoded({extended:true }))
 app.use(express.static('public'))
 app.use(cookieParser())
 // app.use(upload.none())
@@ -24,8 +24,11 @@ import addressRouter from "./Routes/address.routes.js"
 
 import productRouter from './Routes/product.routes.js'
 
+import categoryRouter from './Routes/category.routes.js'
+
 app.use("/api/v1/users" , userRouter)
 app.use("/api/v1/users/address" , addressRouter)
 app.use("/api/v1/products", productRouter)
+app.use("/api/v1/category" , categoryRouter)
 
 export {app}

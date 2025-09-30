@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
+
 const productSchema = new mongoose.Schema(
     {
         name :{
@@ -36,6 +38,10 @@ const productSchema = new mongoose.Schema(
         categories : {
             type : mongoose.Schema.Types.ObjectId,
             ref : 'Category'
+        },
+        owner : {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : "User"
         }
     },
     {
@@ -43,5 +49,7 @@ const productSchema = new mongoose.Schema(
     }
 
 )
+
+productSchema.plugin(mongooseAggregatePaginate)
 
 export const Product = mongoose.model("Product" , productSchema)
