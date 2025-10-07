@@ -5,11 +5,15 @@ import { Order } from '../Models/order.models.js'
 import { Cart } from '../Models/cart.models.js'
 import {Address} from '../Models/address.models.js'
 import { isValidObjectId } from 'mongoose'
+import { sendEMail } from '../utils/sendEmail.js'
+import { User } from '../Models/user.models.js'
 
 
 const createOrder = asyncHandler(async(req,res)=> {
     const userId = req.user._id;
     const{shippingAddress , paymentMethods} = req.body
+
+    const user = await User.findById(userId)
 
     if(!userId){
         throw new ApiError(400 , 'Invalid User Id')
@@ -66,6 +70,19 @@ const createOrder = asyncHandler(async(req,res)=> {
     order.calculateTotal()
 
     await order.save()
+
+    const html = `
+    <h1>Thank you for your order!</h1>
+    <p>Order ID: ${order._id}</p>
+    <p>Total Amount: ₹${order.finalAmount}</p>
+    <p>We will notify you once it ships.</p>
+  `;
+    
+    await sendEMail({
+        to : user.email,
+        subject: `Order Confirmation - #${order._id}`,
+        html
+    })
 
     cart.items=[]
     cart.totalPrice = 0
