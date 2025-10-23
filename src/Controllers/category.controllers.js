@@ -3,6 +3,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import { Category } from "../Models/category.models.js";
 import { User } from "../Models/user.models.js";
+import { isValidObjectId } from "mongoose";
 
 const createCategory = asyncHandler(async(req,res)=>{
     const {name , description} = req.body
@@ -32,4 +33,39 @@ const createCategory = asyncHandler(async(req,res)=>{
     )
 })
 
-export {createCategory}
+const getCategory = asyncHandler(async(req,res)=> {
+    const { categoryId } = req.params;
+
+    if(!isValidObjectId(categoryId)){
+        throw new ApiError(400 , "Invalid Category Id")
+    }
+
+    const categories = await Category.findById(categoryId)
+
+    if(!categories){
+        throw new ApiError(400 , "Categories not Found")
+    }
+
+    return res.status(200)
+    .json(
+        new ApiResponse(200 , categories , "Categories Fetched Successfully")
+    )
+
+    // const categories = {
+    //     name : "Ajmal",
+    //     age : "18"
+    // }
+
+    // console.log(categories);
+    
+
+    // return res.status(200)
+    // .json(
+    //     new ApiResponse(200 , categories , "Categories fetched successfuly")
+    // )
+
+    console.log("Helllo world");
+    
+})
+
+export {createCategory,getCategory}

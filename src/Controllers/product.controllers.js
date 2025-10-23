@@ -128,7 +128,7 @@ const getAllProduct = asyncHandler(async(req,res)=> {
             ratings: 1,
             brand: 1,
             images: 1,
-            category: {
+            categories: {
                 _id: "$categoryDetails._id",
                 name: "$categoryDetails.name"
             },

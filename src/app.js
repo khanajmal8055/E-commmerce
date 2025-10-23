@@ -39,5 +39,7 @@ app.use("/api/v1/category" , categoryRouter)
 app.use("/api/v1/cart" , cartRouter)
 app.use("/api/v1/order" , orderRouter)
 app.use("/api/v1/admin" , adminRouter)
+console.log(categoryRouter);
+
 
 export {app}
