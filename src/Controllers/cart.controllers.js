@@ -99,6 +99,7 @@ const updateCart = asyncHandler(async(req,res)=> {
     if(!productId || !quantity){
         throw new ApiError(400 , "Product ID and qunatity are required")
     }
+    
 
     if(quantity < 1){
         throw new ApiError(400 , "Minimum one product is required")

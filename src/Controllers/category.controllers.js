@@ -76,6 +76,16 @@ const getAllCategories = asyncHandler(async(req,res)=> {
         throw new ApiError(400 , "Category not found")
     }
 
+    
+    const categoryName = categories.map(({name})=>name)
+
+    
+    
+    
+    
+    
+    
+
     return res.status(200)
     .json(
         new ApiResponse(200 , categories , "Categories fetched successfully")
