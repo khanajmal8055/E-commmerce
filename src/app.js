@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 const app = express()
 const upload = multer()
 
+
+
 app.use(cors(
     {
         origin : process.env.CROSS_ORIGIN,
@@ -12,9 +14,9 @@ app.use(cors(
     }
 ))
 
-app.use(express.json())
-app.use(express.urlencoded({extended:true }))
-app.use(express.static('public'))
+app.use(express.json({limit:"16kb"}))
+app.use(express.urlencoded({extended:true , limit:"16kb"}))
+app.use(express.static("public"))
 app.use(cookieParser())
 // app.use(upload.none())
 
@@ -39,7 +41,7 @@ app.use("/api/v1/category" , categoryRouter)
 app.use("/api/v1/cart" , cartRouter)
 app.use("/api/v1/order" , orderRouter)
 app.use("/api/v1/admin" , adminRouter)
-console.log(categoryRouter);
+// console.log(categoryRouter);
 
 
-export {app}
+export { app }

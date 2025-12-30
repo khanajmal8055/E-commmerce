@@ -6,15 +6,15 @@ import {Address} from '../Models/address.models.js'
 import validator from "validator"
 
 const addAddress = asyncHandler(async(req,res)=>{
-    const {fullname , phone , postalcode , street , city , state , country , isDefault} = req.body
+    const {fullname , phoneno , postalcode , street , city , state , country , isDefault} = req.body
     console.log(req.body);
     
 
-    if([fullname , phone , postalcode , street, city , state , country].some((field) => field?.trim()=== "")){
+    if([fullname , phoneno , postalcode , street, city , state , country].some((field) => field?.trim()=== "")){
         throw new ApiError(400 , "All fields are required")
     }
 
-    if(!validator.isMobilePhone(phone , "any")){
+    if(!validator.isMobilePhone(phoneno , "any")){
         throw new ApiError(400 ,"Please provide valid Phone number" )
     }
 
@@ -26,12 +26,12 @@ const addAddress = asyncHandler(async(req,res)=>{
         userId : req.user._id,
         fullname,
         postalcode,
-        phone,
+        phoneno,
         street,
         city,
         state,
         country,
-        isDefault : !!isDefault
+        isDefault : !isDefault
     })
 
     if(!newAddress){

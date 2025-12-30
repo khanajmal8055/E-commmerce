@@ -23,6 +23,9 @@ const orderItemsSchema = new mongoose.Schema(
         subTotal : {
             type : Number,
             // required : true
+        },
+        image : {
+            type : String
         }
     }, {_id : false} 
     

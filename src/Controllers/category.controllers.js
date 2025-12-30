@@ -5,9 +5,16 @@ import { Category } from "../Models/category.models.js";
 import { User } from "../Models/user.models.js";
 import { isValidObjectId } from "mongoose";
 import { Product } from "../Models/products.models.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const createCategory = asyncHandler(async(req,res)=>{
-    const {name , description} = req.body
+
+    // console.log("Content-Type:", req.headers["content-type"]);
+    // console.log("Body:", req.body);
+    // console.log(req.files);
+
+    
+    const {name , description , categoryImage} = req.body;
 
     if(!name && !description){
         throw new ApiError(400 , "Category Name and Descriptions are Required")
@@ -19,9 +26,29 @@ const createCategory = asyncHandler(async(req,res)=>{
         throw new ApiError(400 , "Not a valid owner to add category")
     }
 
+    console.log(req.files);
+    
+
+    const categoryImageLocalPath = req.files?.categoryImage[0].path
+    
+    const images = await uploadOnCloudinary(categoryImageLocalPath)
+
+    console.log(images);
+    
+
+    if(!images){
+        throw new ApiError(400, "Image is not uploaded , error happen while uploading in cloudinary")
+    }
+
+
+    
+    
+    
+
     const categoryAdded = await Category.create({
         name,
-        description
+        description,
+        categoryImage : images.url
     })
 
     if(!categoryAdded){

@@ -39,7 +39,7 @@ const createOrder = asyncHandler(async(req,res)=> {
 
     const shippingInfo = {
         name : address.fullname,
-        phoneNo : address.phoneNo,
+        phoneno : address.phoneno,
         addressLine1 : address.street,
         city : address.city,
         state : address.state,
@@ -51,7 +51,8 @@ const createOrder = asyncHandler(async(req,res)=> {
         product : item.productId,
         name : item.name,
         quantity : item.quantity,
-        price : item.price
+        price : item.price,
+        image : item.image
     }))
 
     const order = await Order.create({

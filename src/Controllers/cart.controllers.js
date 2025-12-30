@@ -54,6 +54,7 @@ const addProductToCart = asyncHandler(async(req,res)=> {
             productId : product._id,
             name : product.name,
             price : product.price,
+            image : product.images[0]?.url,
             quantity
         })
     }

@@ -30,9 +30,13 @@ const createProduct  = asyncHandler(async(req,res) => {
         throw new ApiError(400 , "At least one Image is required for the product")
     }
 
-    const uploadedImages = []
+    let uploadedImages = []
     for(const file of req.files.images){
+        console.log(file);
+        
         const uploaded = await uploadOnCloudinary(file.path)
+        // console.log(uploaded);
+        
         if(!uploaded){
             throw new ApiError(400 , "Failed to upload Product Images")
         }
@@ -52,10 +56,7 @@ const createProduct  = asyncHandler(async(req,res) => {
             stock,
             brand,
             categories : categoryDoc._id,
-            ratings : {
-                average : 0,
-                count : 0
-            },
+            ratings ,
             images : uploadedImages,
             owner : req.user
         }
@@ -154,7 +155,7 @@ const getAllProduct = asyncHandler(async(req,res)=> {
         )
     }
 
-    const productAggregate = await Product.aggregate(pipeline)
+    const productAggregate =  Product.aggregate(pipeline)
     
 
     const options = {

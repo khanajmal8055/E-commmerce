@@ -23,8 +23,7 @@ const productSchema = new mongoose.Schema(
             default : 0
         },
         ratings : {
-            average : {type : Number , default : 0},
-            count : {type : Number , default : 0}
+            type : Number
         },
         brand : {
             type : String

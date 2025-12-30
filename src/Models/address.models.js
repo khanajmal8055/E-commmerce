@@ -37,7 +37,7 @@ const addressSchema = new mongoose.Schema(
             type : mongoose.Schema.Types.ObjectId,
             ref : 'User'
         },
-        phoneNo : {
+        phoneno : {
             type : String,
             required : true
         }
