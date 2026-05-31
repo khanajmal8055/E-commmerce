@@ -71,7 +71,7 @@ const addProductToCart = asyncHandler(async(req,res)=> {
 const getCart = asyncHandler(async(req,res)=>{
     const userId = req.user._id
 
-    const cart = await Cart.findOne({userId}).populate('items.productId' , 'name price stock images' )
+    let cart = await Cart.findOne({userId}).populate('items.productId' , 'name price stock images' )
 
     if(!cart){
         cart = new Cart({

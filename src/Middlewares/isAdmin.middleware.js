@@ -5,7 +5,7 @@ export const isAdmin = async(req,res , next)=>{
     try {
         const user = await User.findById(req.user._id)
         
-        if(!user ){
+        if(user.role !== "admin" ){
             return next(new ApiError(403 , "Admin access only"))
         }
         next()
